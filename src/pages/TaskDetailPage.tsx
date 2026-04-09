@@ -21,7 +21,10 @@ import {
 import { dashboardQueryKey } from '@/hooks/useDashboard';
 import { tasksInfiniteQueryKey } from '@/hooks/useInfiniteTasks';
 import { taskQueryKey, useTask } from '@/hooks/useTask';
-import { formatTaskStatusLabel, useTaskStatusStore } from '@/store/taskStatusStore';
+import {
+  formatTaskStatusLabel,
+  useTaskStatusStore,
+} from '@/store/taskStatusStore';
 import type { TaskListResponse, TaskStatus } from '@/types/api';
 
 const taskStatusOptions: TaskStatus[] = ['TODO', 'DONE'];
@@ -63,7 +66,7 @@ function TaskDetailPage(): JSX.Element {
     return (
       <main className='flex w-full items-center justify-center py-6'>
         <EmptyState
-          className='min-h-[20rem] justify-center rounded-2xl border border-dashed border-border/80 bg-card/90 px-4 py-6 shadow-sm'
+          className='min-h-80 justify-center rounded-2xl border border-dashed border-border/80 bg-card/90 px-4 py-6 shadow-sm'
           title={
             is404
               ? '찾으시는 할 일이 없습니다'
@@ -198,7 +201,9 @@ function TaskDetailPage(): JSX.Element {
           </CardHeader>
 
           <CardContent className='space-y-4 pt-4 sm:space-y-6 sm:pt-6'>
-            <section aria-labelledby='task-memo-heading' className='space-y-2 sm:space-y-3'>
+            <section
+              aria-labelledby='task-memo-heading'
+              className='space-y-2 sm:space-y-3'>
               <h2
                 id='task-memo-heading'
                 className='text-sm font-semibold text-foreground'>

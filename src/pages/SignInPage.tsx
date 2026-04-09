@@ -64,11 +64,7 @@ function SignInPage(): JSX.Element {
   const {
     register,
     handleSubmit,
-    formState: {
-      errors,
-      isSubmitting,
-      isValid,
-    },
+    formState: { errors, isSubmitting, isValid },
   } = useForm<SignInFormValues>({
     resolver: zodResolver(signInSchema),
     mode: 'onChange',
@@ -251,7 +247,9 @@ function SignInPage(): JSX.Element {
                   role='note'
                   aria-label='테스트 계정 정보'
                   className='rounded-lg border border-border bg-muted/50 px-4 py-3 text-sm'>
-                  <p className='mb-1.5 font-medium text-foreground'>테스트 계정</p>
+                  <p className='mb-1.5 font-medium text-foreground'>
+                    테스트 계정
+                  </p>
                   <div className='space-y-0.5 text-muted-foreground'>
                     <p>
                       이메일:{' '}
@@ -279,7 +277,7 @@ function SignInPage(): JSX.Element {
           aria-describedby='sign-in-error-description'
           className='overflow-hidden rounded-3xl border border-border/60 bg-background/95 p-0 shadow-2xl backdrop-blur-xl sm:max-w-md'>
           <div className='relative'>
-            <div className='pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_hsl(var(--destructive)/0.10),_transparent_40%)]' />
+            <div className='pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,hsl(var(--destructive)/0.10),transparent_40%)]' />
 
             <DialogHeader className='relative px-6 pb-4 pt-8 text-center sm:px-8'>
               <DialogTitle className='text-xl font-semibold tracking-tight text-foreground'>
@@ -288,7 +286,7 @@ function SignInPage(): JSX.Element {
 
               <DialogDescription
                 id='sign-in-error-description'
-                className='mt-2 text-sm leading-6 text-muted-foreground break-words'>
+                className='mt-2 text-sm leading-6 text-muted-foreground wrap-break-word'>
                 {errorModal.message}
               </DialogDescription>
             </DialogHeader>
