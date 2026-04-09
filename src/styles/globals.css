@@ -1,0 +1,109 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@font-face {
+  font-family: 'Pretendard Variable';
+  src: url('/fonts/PretendardVariable.woff2') format('woff2');
+  font-weight: 45 920;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ─── KB CI/BI 색상 토큰 ─────────────────────────────── */
+:root {
+  /* Primary: KB Yellow */
+  --primary: hsl(44 100% 50%); /* #FFBC00 */
+  --primary-hover: hsl(48 100% 50%); /* #FFCC00 */
+  --primary-foreground: hsl(30 10% 10%); /* 어두운 텍스트 — 황색 위 대비 */
+
+  /* KB Neutral Gray */
+  --neutral: hsl(35 12% 34%); /* #60584C */
+  --neutral-dark: hsl(35 12% 30%); /* #544F45 */
+
+  /* Surface */
+  --background: hsl(40 20% 98%);
+  --foreground: hsl(30 10% 10%);
+  --card: hsl(0 0% 100%);
+  --card-foreground: hsl(30 10% 10%);
+  --popover: hsl(0 0% 100%);
+  --popover-foreground: hsl(30 10% 10%);
+
+  /* Secondary / Muted / Accent */
+  --secondary: hsl(38 15% 92%);
+  --secondary-foreground: hsl(35 12% 30%);
+  --muted: hsl(38 15% 94%);
+  --muted-foreground: hsl(35 12% 40%);
+  --accent: hsl(44 80% 92%);
+  --accent-foreground: hsl(35 12% 20%);
+
+  /* Semantic */
+  --destructive: hsl(0 84% 60%);
+  --destructive-foreground: hsl(0 0% 100%);
+  --success: hsl(142 76% 36%);
+
+  /* Border / Input / Ring */
+  --border: hsl(35 12% 85%);
+  --input: hsl(35 12% 85%);
+  --ring: hsl(44 100% 50%);
+
+  /* Radius */
+  --radius: 0.5rem;
+
+  /* Layout */
+  --gnb-height: 60px;
+  --lnb-width: 220px;
+  --lnb-width-mobile: 64px;
+
+  /* Font */
+  --font-sans:
+    'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont,
+    system-ui, sans-serif;
+}
+
+/* ─── Tailwind v4 유틸리티 생성 (@theme inline) ─────── */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-neutral: var(--neutral);
+  --color-neutral-dark: var(--neutral-dark);
+  --color-success: var(--success);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --font-sans: var(--font-sans);
+}
+
+/* ─── Base ───────────────────────────────────────────── */
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html,
+  body,
+  #root {
+    height: 100%;
+    overflow: hidden;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+}
