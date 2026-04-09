@@ -1,9 +1,11 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { RouterProvider } from "@tanstack/react-router";
+import axios from "axios";
 
 import "./styles/globals.css";
 import { router } from "./routes";
+import { useAuthStore } from "./store/authStore";
 
 async function enableMocking(): Promise<void> {
 	if (!import.meta.env.DEV) return;
@@ -19,13 +21,11 @@ async function recoverSession(): Promise<void> {
 		.some((c) => c.trim().startsWith("token="));
 	if (!hasCookie) return;
 	try {
-		const { default: axios } = await import("axios");
 		const { data } = await axios.post<{ accessToken: string }>(
 			"/api/refresh",
 			{},
 			{ withCredentials: true, baseURL: "/" },
 		);
-		const { useAuthStore } = await import("./store/authStore");
 		useAuthStore.getState().setAccessToken(data.accessToken);
 	} catch {
 		// 유효한 세션이 없으면 이후 라우트 가드가 로그인 화면으로 안내합니다.
