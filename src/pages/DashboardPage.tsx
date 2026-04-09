@@ -94,7 +94,7 @@ function DashboardPage() {
   const { data, isError, isPending } = useDashboard({ enabled: isAuthenticated })
 
   return (
-    <main aria-labelledby="dashboard-heading" className="space-y-4 sm:space-y-6">
+    <main aria-labelledby="dashboard-heading" className="w-full space-y-4 sm:space-y-6">
       <header className="space-y-1 sm:space-y-2">
         <h1 id="dashboard-heading" className="text-xl font-semibold tracking-tight sm:text-3xl">
           대시보드
