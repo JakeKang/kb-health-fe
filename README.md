@@ -242,3 +242,54 @@ pnpm run lint
 5. 회원정보 / 전역 예외 처리
    - `/user`에서 로그인한 사용자 이름과 메모를 확인합니다.
    - global 404는 공통 셸 없이 full-page 화면으로 렌더링되고, 대시보드 복귀 버튼을 제공합니다.
+
+---
+
+## 14. 개발 환경과 프로덕션 환경의 차이
+
+> 이 프로젝트는 과제전형용 제출물로, 실제 백엔드 없이 동작 확인이 가능하도록 일부 기능을 개발 환경 전용으로 구성했습니다.
+> 아래 항목들은 실제 프로덕션 배포 시 별도로 처리되어야 하는 부분입니다.
+
+### 🔌 Mock API (MSW)
+
+개발 환경에서는 [MSW(Mock Service Worker)](https://mswjs.io/)가 브라우저 단에서 API 요청을 가로채 응답을 반환합니다.
+
+- `src/main.tsx`에서 `import.meta.env.DEV`일 때만 MSW 워커를 시작합니다. 프로덕션 빌드에서는 워커가 초기화되지 않고, 실제 백엔드 엔드포인트로 요청이 전달됩니다.
+- 모든 Mock 핸들러는 `src/mocks/handlers.ts`에 정의되어 있습니다.
+
+| 항목 | 개발 환경 (현재) | 프로덕션 |
+|------|-----------------|---------|
+| 인증 계정 | `test@example.com` / `Password1` 고정 | 실제 사용자 DB 인증 |
+| 발급 토큰 | `mock.access.token` 등 고정 문자열 | 서버에서 서명된 JWT |
+| Task 데이터 | 55개 절차적 생성 더미 데이터 | 실제 DB 조회 결과 |
+| PATCH / DELETE | 결과를 메모리에만 반영 | DB에 즉시 영속 저장 |
+
+### 🔄 새로고침 시 데이터 초기화
+
+개발 환경에서 Task의 상태 변경(TODO ↔ DONE)과 삭제는 **페이지를 새로고침하면 원래대로 돌아옵니다.**
+
+이는 MSW 핸들러가 변경 사항을 브라우저 메모리(`statusOverrides` Map, `deletedTaskIds` Set)에만 저장하기 때문입니다. 같은 세션 내에서는 목록·상세·대시보드가 일관된 값을 보여주지만, 새로고침 시 초기 목 데이터로 복원됩니다.
+
+프로덕션에서는 모든 변경이 서버 DB에 영속적으로 저장됩니다.
+
+### 📦 목 데이터 구성
+
+`src/mocks/handlers.ts`의 더미 Task 데이터는 아래 규칙으로 생성됩니다.
+
+- 총 55개 (6페이지, 마지막 페이지는 5개)
+- 3의 배수 인덱스는 `DONE`, 나머지는 `TODO`
+- 등록 일시 기준값: `2026-04-09 08:30 UTC`
+
+### 🔑 세션 복구 흐름
+
+access token은 메모리에만 보관하고 refresh token은 쿠키에 저장합니다. 새로고침 시 쿠키의 refresh token으로 `/api/refresh`를 호출해 access token을 복구합니다.
+
+개발 환경에서는 MSW가 `/api/refresh` 요청을 가로채 mock refresh token을 검증합니다. 프로덕션에서는 동일한 흐름으로 실제 인증 서버에 요청합니다.
+
+### 🛠 개발 전용 UI
+
+TanStack Router Devtools(`<TanStackRouterDevtools />`)는 `import.meta.env.DEV`일 때만 화면 우측 하단에 노출됩니다. 프로덕션 빌드에서는 렌더링되지 않습니다.
+
+### ⚙️ API 엔드포인트 설정
+
+현재 API 경로는 `/api/*`로 하드코딩되어 있으며, 별도의 `.env` 파일이나 `VITE_API_BASE_URL` 환경 변수를 사용하지 않습니다. 실제 프로덕션 배포 시에는 환경 변수로 API Base URL을 주입하는 설정이 필요합니다.

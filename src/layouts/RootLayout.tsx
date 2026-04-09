@@ -66,6 +66,7 @@ function RootLayout(): JSX.Element {
         </DialogContent>
       </Dialog>
 
+      {/* 개발 환경 전용 라우터 디버깅 도구입니다. 프로덕션 빌드에서는 렌더링되지 않습니다. */}
       {import.meta.env.DEV ? (
         <TanStackRouterDevtools position='bottom-right' />
       ) : null}
