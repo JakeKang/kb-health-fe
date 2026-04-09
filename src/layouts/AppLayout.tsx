@@ -57,7 +57,7 @@ function GNBHeader({ onRequestLogout }: GNBHeaderProps): JSX.Element {
     <header className='fixed inset-x-0 top-0 z-40 border-b border-border/80 bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/85'>
       <nav
         aria-label='주요 내비게이션'
-        className='mx-auto flex h-[var(--gnb-height)] min-h-[var(--gnb-height)] max-w-screen-2xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8'>
+        className='mx-auto flex h-(--gnb-height) min-h-(--gnb-height) max-w-screen-2xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8'>
         <Link
           to='/'
           className='inline-flex items-center gap-2 rounded-lg px-2 py-1 text-sm font-semibold tracking-tight text-foreground transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2'>
@@ -154,10 +154,10 @@ function AppLayout(): JSX.Element {
         </DialogContent>
       </Dialog>
 
-      <div className='mx-auto flex h-full max-w-screen-2xl flex-col pt-[var(--gnb-height)] md:flex-row'>
+      <div className='mx-auto flex h-full max-w-screen-2xl flex-col pt-(--gnb-height) md:flex-row'>
         <nav
           aria-label='사이드 내비게이션'
-          className='fixed inset-x-0 bottom-0 z-40 border-t border-border/80 bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/85 md:sticky md:top-[var(--gnb-height)] md:z-30 md:h-[calc(100dvh-var(--gnb-height))] md:w-[var(--lnb-width)] md:self-start md:border-r md:border-t-0 md:bg-transparent md:backdrop-blur-none'>
+          className='fixed inset-x-0 bottom-0 z-40 border-t border-border/80 bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/85 md:sticky md:top-(--gnb-height) md:z-30 md:h-[calc(100dvh-var(--gnb-height))] md:w-(--lnb-width) md:self-start md:border-r md:border-t-0 md:bg-transparent md:backdrop-blur-none'>
           <ul className='grid h-16 grid-cols-2 md:flex md:h-full md:flex-col md:gap-2 md:px-3 md:pb-4 md:pt-4'>
             {navigationItems.map(({ to, label, icon: Icon, exact }) => (
               <li key={to} className='min-w-0 md:w-full'>

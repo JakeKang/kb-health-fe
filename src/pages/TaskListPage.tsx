@@ -112,7 +112,9 @@ function TaskListPage() {
   };
 
   return (
-    <main aria-labelledby='task-list-heading' className='w-full space-y-4 sm:space-y-6'>
+    <main
+      aria-labelledby='task-list-heading'
+      className='w-full space-y-4 sm:space-y-6'>
       <header className='space-y-1 sm:space-y-2'>
         <h1
           id='task-list-heading'
@@ -150,7 +152,7 @@ function TaskListPage() {
           <div
             ref={scrollContainerRef}
             data-scroll-container='true'
-            className='h-[calc(100dvh-var(--gnb-height)-theme(spacing.48))] min-h-64 overflow-y-auto rounded-xl border border-border/70 bg-card/40 p-2 shadow-sm'>
+            className='h-[calc(100dvh-var(--gnb-height)-(--spacing(48)))] min-h-64 overflow-y-auto rounded-xl border border-border/70 bg-card/40 p-2 shadow-sm'>
             <ul
               className='relative'
               style={{ height: `${rowVirtualizer.getTotalSize()}px` }}>
